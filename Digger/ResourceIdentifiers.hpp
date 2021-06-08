@@ -16,7 +16,8 @@ namespace Textures
 		Nobbin,
 		Hobbin,
 		Bonus,
-		MoneyBag,
+		Emerald,
+		MoneyBag
 	};
 }
 
@@ -39,7 +40,21 @@ namespace Animations
 {
 	enum ID
 	{
-		d
+		DiggerMoveLeft,
+		DiggerMoveRight,
+		DiggerMoveUp,
+		DiggerMoveDown,
+		HobbinMoveLeft,
+		HobbinMoveRight,
+		Nobbin
+	};
+}
+
+namespace Fonts
+{
+	enum ID
+	{
+		TextFont
 	};
 }
 
@@ -54,3 +69,5 @@ typedef ResourceHolder<sf::Sound, Sound::ID> SoundHolder;
 typedef ResourceHolder<sf::Music, Music::ID> MusicHolder;
 
 typedef ResourceHolder<Animation, Animations::ID> AnimationHolder;
+
+typedef ResourceHolder<sf::Font, Fonts::ID> FontHolder;

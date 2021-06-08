@@ -10,31 +10,43 @@
 #include"ResourceHolder.hpp"
 #include"ResourceIdentifiers.hpp"
 
+#include"HighScoreSystem.h"
+
 class Game
 {
 private:
-
 	//window
 	sf::RenderWindow* window;
 
 	//Resource houders
 	TextureHolder textures;
+	MusicHolder musics;
+	SoundHolder sounds;
+	AnimationHolder animations;
+	FontHolder fonts;
 
 	//init
 	void initVariables();
 	void initWindow();
 	void initTextures();
+	void initAnimation();
+	void initSound();
+	void initMusic();
+	void initFonts();
 
 	//update
 	void processEvents();
-	void update(sf::Time elapsedTime);
+	void update(sf::Time& elapsedTime);
 
 	//render
 	void render(sf::RenderTarget* target);
 
 	//delete 
 	void deleteVariables();
+	
+	
 public:
+	//Constructor
 	Game();
 	~Game();
 
