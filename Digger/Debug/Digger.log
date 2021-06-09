@@ -1,5 +1,4 @@
-﻿  Map.cpp
-  MoneyBag.cpp
-  Play.cpp
+﻿  Game.cpp
+  Map.cpp
   Generating Code...
   Digger.vcxproj -> E:\Digger\Debug\Digger.exe

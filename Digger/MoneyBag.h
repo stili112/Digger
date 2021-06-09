@@ -15,10 +15,11 @@ class MoneyBag
 {
 private:
 	//const
-	static const int ofsetTop = 0;
-	static const int ofsetLeft = 0;
+	static const int ofsetTop;
+	static const int ofsetLeft;
 	//moving left right down
 	static const float movingEvrySeconds;
+	static const float timeBeforeStartFalling;
 
 	//position
 	int x;
@@ -27,13 +28,20 @@ private:
 	//move
 	bool movingLeft;
 	bool movingRight;
+	float timerForMovment;
+	float timerBeforeFaling;
+	int brTunelMoneyBagFallen;
+	bool moneyBagIsBrocken;
 
+	TextureHolder& textures;
 	sf::Sprite sprite;
 	bool falling;
 
 	sf::Vector2f topLeftPos;
 public:
-	MoneyBag(int x, int y, sf::Vector2f topLeftPos, TextureHolder textures, float scale);
+	MoneyBag(int x, int y, sf::Vector2f topLeftPos, TextureHolder& textures, float scale);
+
+	const MoneyBag& operator=(const MoneyBag& other);
 
 	void update(sf::Time& elapsedTime, Map* diggedSpots);
 	void render(sf::RenderTarget* target);
@@ -42,5 +50,7 @@ public:
 	void moveRight();
 
 	sf::FloatRect getBounds() const;
+	bool moneyBagIsFalling() const;
+	bool getMoneyBagIsBrocken() const;
 };
 

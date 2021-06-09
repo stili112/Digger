@@ -17,7 +17,8 @@ namespace Textures
 		Hobbin,
 		Bonus,
 		Emerald,
-		MoneyBag
+		MoneyBag,
+		Coins
 	};
 }
 

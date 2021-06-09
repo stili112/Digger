@@ -13,14 +13,16 @@ class Emerald
 {
 private:
 	//const
-	static const int ofsetTop = 0;
-	static const int ofsetLeft = 0;
+	static const int ofsetTop;
+	static const int ofsetLeft;
 
 	sf::Sprite sprite;
 
 	sf::Vector2f topLeftPos;
 public:
-	Emerald(int x, int y, sf::Vector2f topLeftPos, TextureHolder textures, float scale);
+	Emerald(int x, int y, sf::Vector2f topLeftPos, TextureHolder& textures, float scale);
+
+	void render(sf::RenderTarget* target);
 
 	sf::FloatRect getBounds() const;
 };

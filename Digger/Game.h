@@ -11,6 +11,7 @@
 #include"ResourceIdentifiers.hpp"
 
 #include"HighScoreSystem.h"
+#include"Map.h"
 
 class Game
 {
@@ -24,6 +25,9 @@ private:
 	SoundHolder sounds;
 	AnimationHolder animations;
 	FontHolder fonts;
+
+	//temp
+	Map* map;
 
 	//init
 	void initVariables();

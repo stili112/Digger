@@ -1,27 +1,161 @@
 #include "MoneyBag.h"
 #include"Map.h"
+#include <iostream>
 
 //private
 const float MoneyBag::movingEvrySeconds = 0.1f;
+const float MoneyBag::timeBeforeStartFalling = 0.75f;
+const int MoneyBag::ofsetTop = 9;
+const int MoneyBag::ofsetLeft = 9;
 
 //public
-MoneyBag::MoneyBag(int x, int y, sf::Vector2f topLeftPos, TextureHolder textures, float scale)
+MoneyBag::MoneyBag(int x, int y, sf::Vector2f topLeftPos, TextureHolder& textures, float scale) :textures(textures)
 {
 	this->x = x;
 	this->y = y;
 	falling = false;
+	timerForMovment = 0.f;
+	moneyBagIsBrocken = false;
+	brTunelMoneyBagFallen = 0;
+	timerBeforeFaling = 0.f;
 
 	movingLeft = false;
 	movingRight = false;
 
 	sprite.setTexture(textures.get(Textures::MoneyBag));
 	sprite.scale(scale, scale);
-	sprite.setPosition(14 * x * topLeftPos.x + ofsetLeft, 14 * y * topLeftPos.y + ofsetTop);
+	sprite.setPosition(14 * x + topLeftPos.x + ofsetLeft, 14 * y + topLeftPos.y + ofsetTop);
+}
+
+const MoneyBag& MoneyBag::operator=(const MoneyBag& other)
+{
+	if (this != &other)
+	{
+		x=other.x;
+		y=other.y;
+
+		//move
+		movingLeft=other.movingLeft;
+		movingRight=other.movingRight;
+		timerForMovment = other.timerForMovment;
+		timerBeforeFaling= other.timerBeforeFaling;
+		brTunelMoneyBagFallen = other.brTunelMoneyBagFallen;
+		moneyBagIsBrocken = other.moneyBagIsBrocken;
+		sprite= other.sprite;
+		falling = other.falling;
+
+		topLeftPos=other.topLeftPos;
+	}
+	return *this;
 }
 
 void MoneyBag::update(sf::Time& elapsedTime, Map* diggedSpots)
 {
 
+	if (!moneyBagIsBrocken)
+	{
+		if (movingLeft)
+		{
+			timerForMovment += elapsedTime.asSeconds();
+			if (timerForMovment >= movingEvrySeconds)
+			{
+				timerForMovment = 0.f;
+				sprite.move(-14, 0);
+				x--;
+				if (x % 5 == 1)
+				{
+					movingLeft = false;
+				}
+			}
+		}
+		else
+		{
+			if (movingRight)
+			{
+				timerForMovment += elapsedTime.asSeconds();
+				if (timerForMovment >= movingEvrySeconds)
+				{
+					timerForMovment = 0.f;
+					sprite.move(14, 0);
+					x++;
+					if (x % 5 == 1)
+					{
+						movingRight = false;
+					}
+				}
+			}
+		}
+
+		if (y < Map::brRows - 2)
+		{
+			const bool** diggedSpot = diggedSpots->getDiggedSpots();
+			
+			if (y % 5 == 1)
+			{
+				
+				if (diggedSpot[x][y + 5] || (y<(Map::brRows - 7) && diggedSpot[x][y + 8])  )
+				{
+					if (falling)
+					{
+						brTunelMoneyBagFallen++;
+
+						diggedSpots->createCircle(x, y);
+						timerForMovment = 0.f;
+						sprite.move(0, 14);
+						y++;
+					}
+					else
+					{
+						timerBeforeFaling += elapsedTime.asSeconds();
+					}
+					if (timeBeforeStartFalling < timerBeforeFaling)
+					{
+						falling = true;
+						timerBeforeFaling = 0.f;
+					}
+					
+					
+				}
+				else
+				{
+					falling = false;
+					if (brTunelMoneyBagFallen >= 2)
+					{
+						moneyBagIsBrocken = true;
+					}
+					brTunelMoneyBagFallen = 0;
+				}
+			}
+			else
+			{
+				if (falling)
+				{
+					timerForMovment += elapsedTime.asSeconds();
+					if (timerForMovment >= movingEvrySeconds)
+					{
+						diggedSpots->createCircle(x, y);
+						timerForMovment = 0.f;
+						sprite.move(0, 14);
+						y++;
+					}
+				}
+			}
+		}
+		else
+		{
+			falling = false;
+			if (brTunelMoneyBagFallen >= 2)
+			{
+				moneyBagIsBrocken = true;
+			}
+			brTunelMoneyBagFallen = 0;
+		}
+		
+	}
+	else
+	{
+		sprite.setTexture(textures.get(Textures::Coins));
+	}
 }
 void MoneyBag::render(sf::RenderTarget* target)
 {
@@ -30,14 +164,33 @@ void MoneyBag::render(sf::RenderTarget* target)
 
 void MoneyBag::moveLeft()
 {
-	movingLeft = true;
+	if (x > 1)
+	{
+		movingLeft = true;
+		sprite.move(-14, 0);
+		x--;
+	}	
 }
 void MoneyBag::moveRight()
 {
-	movingRight = true;
+	if (x<Map::brColls-2)
+	{
+		movingRight = true;
+		sprite.move(14, 0);
+		x++;
+	}
+	
 }
 
 sf::FloatRect MoneyBag::getBounds() const
 {
 	return sprite.getGlobalBounds();
+}
+bool MoneyBag::moneyBagIsFalling() const
+{
+	return falling;
+}
+bool MoneyBag::getMoneyBagIsBrocken() const
+{
+	return moneyBagIsBrocken;
 }

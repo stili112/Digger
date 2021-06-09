@@ -19,6 +19,8 @@ void Game::initTextures()
 	textures.load(Textures::Nobbin, "Textures/Nobbin.png");
 	textures.load(Textures::Bonus, "Textures/Bonus.png");
 	textures.load(Textures::MoneyBag, "Textures/MoneyBag.png");
+	textures.load(Textures::Emerald, "Textures/Emerald.png");
+	textures.load(Textures::Coins, "Textures/Coins.png");
 }
 void Game::initAnimation()
 {
@@ -136,6 +138,7 @@ void Game::processEvents()
 void Game::update(sf::Time& elapsedTime)
 {
 	processEvents();
+	map->update(elapsedTime);
 }
 
 //render
@@ -145,6 +148,7 @@ void Game::render(sf::RenderTarget* target)
 	window->clear();
 
 	//draw
+	map->render(target);
 
 	//display
 	window->display();
@@ -170,6 +174,8 @@ Game::Game()
 	initMusic();
 	initFonts();
 	initAnimation();
+
+	map = new Map(1, sf::Vector2f(0, 0), textures);
 }
 Game::~Game()
 {

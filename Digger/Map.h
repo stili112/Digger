@@ -16,7 +16,7 @@
 
 class Map
 {
-private:
+public:
 	//ConstValues
 	static const int tunnelWidth = 33;
 	static const int enemySpawnPositionTunelWidth = 47;
@@ -24,9 +24,11 @@ private:
 	static const int brRows = 48;
 	static const int brColls = 73;
 
+private:
+
 	//design
-	char levelDesign[10][15];
-	sf::CircleShape* map[brRows][brColls];
+	char levelDesign[15][10];
+	sf::CircleShape* map[brColls][brRows];
 	bool** diggedSpots;
 
 	//top left position
@@ -35,6 +37,9 @@ private:
 	//positions
 	sf::Vector2i playerStartPos;
 	sf::Vector2i enemySpawnPos;	
+
+	//Textures
+	TextureHolder& textures;
 
 	//Emerald and Bags of Gold
 	std::vector<Emerald> emeralds;
@@ -46,6 +51,8 @@ private:
 	//functions
 	void copyMap(const Map& other);
 	void deleteMap();
+
+	void reshapeArray(char from[10][15], char to[15][10]);
 
 	void makeStartFormation();
 public:

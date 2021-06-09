@@ -21,13 +21,48 @@ private:
 	//text
 	sf::Text Points;
 
+	//game info
+	int currentLevel;
+	
+	bool paused;
+	bool gameOver;
+	int brLifes;
+
+	//Entitys
+	Map* map;
+
+	DiggerPlayer* player;
+	std::vector<Enemy> enemys;
+
+	//enemies spawn
+
+	//Resource holder
+	TextureHolder& textures;
+	AnimationHolder& animations;
+	FontHolder& fonts;
+	HighScoreSystem& system;
+
+	//collision
+	void collision();
+	void playerEnemiesCollision();
+	void enemiesBagCollision();
+	void playerBagCollision();
+
+	//init
+	void initText();
+	void initMap();
+	void initPlayer();
+
 public:
-	Play(TextureHolder& textures, AnimationHolder& animations, FontHolder& fonts);
+	Play(TextureHolder& textures, AnimationHolder& animations, FontHolder& fonts, HighScoreSystem& system);
+	~Play();
 
 	//update
 	void update(sf::Time& elapsedTime);
 
 	//render
 	void render(sf::RenderTarget* target);
+
+	bool getGameOver() const;
 };
 
