@@ -18,15 +18,18 @@
 class Play
 {
 private:
+	static const float timeSpawnEnemy;
+	static const float spaceBetweenLives;
+
 	//text
 	sf::Text Points;
 
 	//game info
-	int currentLevel;
-	
+	int currentLevel;	
 	bool paused;
 	bool gameOver;
 	int brLifes;
+	std::vector<sf::Sprite> lives;
 
 	//Entitys
 	Map* map;
@@ -35,6 +38,8 @@ private:
 	std::vector<Enemy> enemys;
 
 	//enemies spawn
+	int maxBrEnemys;
+	float timerSpawnMoreEnemy;
 
 	//Resource holder
 	TextureHolder& textures;

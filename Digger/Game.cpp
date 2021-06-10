@@ -139,6 +139,7 @@ void Game::update(sf::Time& elapsedTime)
 {
 	processEvents();
 	map->update(elapsedTime);
+	player->update(elapsedTime, map);
 }
 
 //render
@@ -149,6 +150,7 @@ void Game::render(sf::RenderTarget* target)
 
 	//draw
 	map->render(target);
+	player->render(target);
 
 	//display
 	window->display();
@@ -176,6 +178,7 @@ Game::Game()
 	initAnimation();
 
 	map = new Map(1, sf::Vector2f(0, 0), textures);
+	player = new DiggerPlayer(21,11,sf::Vector2f(0,0),textures,animations);
 }
 Game::~Game()
 {

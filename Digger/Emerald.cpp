@@ -1,5 +1,5 @@
 #include "Emerald.h"
-#include <iostream>
+#include"Map.h"
 
 //private
 const int Emerald::ofsetTop=9;
@@ -10,7 +10,7 @@ Emerald::Emerald(int x, int y, sf::Vector2f topLeftPos, TextureHolder& textures,
 {
 	sprite.setTexture(textures.get(Textures::Emerald));
 	sprite.scale(scale,scale);
-	sprite.setPosition(14.f*x + topLeftPos.x + ofsetLeft, 14.f * y + topLeftPos.y + ofsetTop);
+	sprite.setPosition(Map::PIXELS_BETWEEN_TWO_CIRCLES * x + topLeftPos.x + ofsetLeft, Map::PIXELS_BETWEEN_TWO_CIRCLES * y + topLeftPos.y + ofsetTop);
 }
 
 void Emerald::render(sf::RenderTarget* target)

@@ -2,14 +2,16 @@
 #include <iostream>
 
 //private
+const float Map::PIXELS_BETWEEN_TWO_CIRCLES = 14.f;
+ 
 //init
 void Map::initDiggedSpots()
 {
-	diggedSpots = new bool* [brColls];
-	for (size_t i = 0; i < brColls; i++)
+	diggedSpots = new bool* [BR_COLLS];
+	for (size_t i = 0; i < BR_COLLS; i++)
 	{
-		diggedSpots[i] = new bool[brRows];
-		for (size_t j = 0; j < brRows; j++)
+		diggedSpots[i] = new bool[BR_ROWS];
+		for (size_t j = 0; j < BR_ROWS; j++)
 		{
 			diggedSpots[i][j] = false;
 		}
@@ -36,15 +38,15 @@ void Map::copyMap(const Map& other)
 
 
 	//map and diggedSpots
-	diggedSpots = new bool* [brColls];
-	for (size_t i = 0; i < brColls; i++)
+	diggedSpots = new bool* [BR_COLLS];
+	for (size_t i = 0; i < BR_COLLS; i++)
 	{
-		diggedSpots[i] = new bool[brRows];
+		diggedSpots[i] = new bool[BR_ROWS];
 	}
 
-	for (size_t i = 0; i < brColls; i++)
+	for (size_t i = 0; i < BR_COLLS; i++)
 	{
-		for (size_t j = 0; j < brRows; j++)
+		for (size_t j = 0; j < BR_ROWS; j++)
 		{
 			diggedSpots[i][j] = other.diggedSpots[i][j];
 			map[i][j] = new sf::CircleShape(other.map[i][j]->getRadius());
@@ -53,9 +55,9 @@ void Map::copyMap(const Map& other)
 }
 void Map::deleteMap()
 {
-	for (size_t i = 0; i < brColls; i++)
+	for (size_t i = 0; i < BR_COLLS; i++)
 	{
-		for (size_t j = 0; j < brRows; j++)
+		for (size_t j = 0; j < BR_ROWS; j++)
 		{
 			delete map[i][j];
 		}
@@ -77,7 +79,7 @@ void Map::reshapeArray(char from[10][15], char to[15][10])
 
 void Map::makeStartFormation()
 {
-	sf::CircleShape circle(tunnelWidth);
+	sf::CircleShape circle(TUNNEL_WIDTH);
 	for (size_t i = 0; i < 15; i++)
 	{
 		for (size_t j = 0; j < 10; j++)
@@ -86,7 +88,7 @@ void Map::makeStartFormation()
 			{
 				if (levelDesign[i][j] == '.')
 				{
-					circle.setPosition(topLeftCorner.x + (1 + i * 5) * 14.f, topLeftCorner.y + (1 + j * 5) * 14.f);
+					circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 					map[1 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
 				}
 
@@ -94,16 +96,16 @@ void Map::makeStartFormation()
 				{
 					if (levelDesign[i - 1][j] == '.' || levelDesign[i - 1][j] == 'S')
 					{
-						circle.setPosition(topLeftCorner.x + (i * 5) * 14.f, topLeftCorner.y + (1 + j * 5) * 14.f);
+						circle.setPosition(topLeftCorner.x + (i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 						map[i * 5][1 + j * 5] = new sf::CircleShape(circle);
 
-						circle.setPosition(topLeftCorner.x + (-1 + i * 5) * 14.f, topLeftCorner.y + (1 + j * 5) * 14.f);
+						circle.setPosition(topLeftCorner.x + (-1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 						map[-1 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
 					}
 				}
 				else
 				{
-					circle.setPosition(topLeftCorner.x + (i * 5) * 14.f, topLeftCorner.y + (1 + j * 5) * 14.f);
+					circle.setPosition(topLeftCorner.x + (i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 					map[i * 5][1 + j * 5] = new sf::CircleShape(circle);
 				}
 
@@ -111,16 +113,16 @@ void Map::makeStartFormation()
 				{
 					if (levelDesign[i + 1][j] == '.' || levelDesign[i + 1][j] == 'S')
 					{
-						circle.setPosition(topLeftCorner.x + (2 + i * 5) * 14.f, topLeftCorner.y + (1 + j * 5) * 14.f);
+						circle.setPosition(topLeftCorner.x + (2 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 						map[2 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
 
-						circle.setPosition(topLeftCorner.x + (3 + i * 5) * 14.f, topLeftCorner.y + (1 + j * 5) * 14.f);
+						circle.setPosition(topLeftCorner.x + (3 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 						map[3 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
 					}
 				}
 				else
 				{
-					circle.setPosition(topLeftCorner.x + (2 + i * 5) * 14.f, topLeftCorner.y + (1 + j * 5) * 14.f);
+					circle.setPosition(topLeftCorner.x + (2 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 					map[2 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
 				}
 
@@ -128,32 +130,24 @@ void Map::makeStartFormation()
 				{
 					if (levelDesign[i][j - 1] == '.' || levelDesign[i][j - 1] == 'S')
 					{
-						circle.setPosition(topLeftCorner.x + (1 +i * 5) * 14.f, topLeftCorner.y + (j * 5) * 14.f);
+						circle.setPosition(topLeftCorner.x + (1 +i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 						map[1 +i * 5][ j * 5] = new sf::CircleShape(circle);
 
-						circle.setPosition(topLeftCorner.x + (1 + i * 5) * 14.f, topLeftCorner.y + (-1 + j * 5) * 14.f);
+						circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (-1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 						map[1 + i * 5][-1 + j * 5] = new sf::CircleShape(circle);
 					}
-				}
-				else
-				{
-
 				}
 
 				if (j < 9)
 				{
 					if (levelDesign[i][j + 1] == '.' || levelDesign[i][j + 1] == 'S')
 					{
-						circle.setPosition(topLeftCorner.x + (1 + i * 5) * 14.f, topLeftCorner.y + (2 + j * 5) * 14.f);
+						circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (2 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 						map[1 + i * 5][2 +j * 5] = new sf::CircleShape(circle);
 
-						circle.setPosition(topLeftCorner.x + (1 + i * 5) * 14.f, topLeftCorner.y + (3 + j * 5) * 14.f);
+						circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (3 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 						map[1 + i * 5][3 + j * 5] = new sf::CircleShape(circle);
 					}
-				}
-				else
-				{
-
 				}
 			}
 			
@@ -171,30 +165,30 @@ void Map::makeStartFormation()
 			{
 				if (j > 0 && levelDesign[i][j - 1] != '.')
 				{
-					circle.setPosition(topLeftCorner.x + (i * 5) * 14.f, topLeftCorner.y + (1 + j * 5) * 14.f);
+					circle.setPosition(topLeftCorner.x + (i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 					map[1 + i * 5][ j * 5] = new sf::CircleShape(circle);
 				}
 				if (j < 9 && levelDesign[i][j + 1] != '.')
 				{
-					circle.setPosition(topLeftCorner.x + (2 + i * 5) * 14.f, topLeftCorner.y + (1 + j * 5) * 14.f);
+					circle.setPosition(topLeftCorner.x + (2 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 					map[1 + i * 5][2 + j * 5] = new sf::CircleShape(circle);
 				}
 
 				if (i > 0 && levelDesign[i-1][j] != '.')
 				{
-					circle.setPosition(topLeftCorner.x + (1 + i * 5) * 14.f, topLeftCorner.y + (j * 5) * 14.f);
+					circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 					map[i * 5][1+ j * 5] = new sf::CircleShape(circle);
 				}
 				if (i < 14 && levelDesign[i+1][j] != '.')
 				{
-					circle.setPosition(topLeftCorner.x + (1 + i * 5) * 14.f, topLeftCorner.y + (2 + j * 5) * 14.f);
+					circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (2 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 					map[2 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
 				}
 
-				circle.setPosition(topLeftCorner.x + i * 5 * 14.f, topLeftCorner.y + j * 5 * 14.f);
-				circle.setRadius(enemySpawnPositionTunelWidth);
+				circle.setPosition(topLeftCorner.x + i * 5 * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + j * 5 * PIXELS_BETWEEN_TWO_CIRCLES);
+				circle.setRadius(ENEMY_SPAWN_POSITION_TUNEL_WIDTH);
 				map[1 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
-				circle.setRadius(tunnelWidth);
+				circle.setRadius(TUNNEL_WIDTH);
 
 				enemySpawnPos = sf::Vector2i(1 + 5 * i, 1 + 5 * j);
 			}
@@ -208,9 +202,9 @@ void Map::makeStartFormation()
 	}
 
 
-	for (size_t i = 0; i < brColls; i++)
+	for (size_t i = 0; i < BR_COLLS; i++)
 	{
-		for (size_t j = 0; j < brRows; j++)
+		for (size_t j = 0; j < BR_ROWS; j++)
 		{
 			if (map[i][j] != nullptr)
 			{
@@ -232,8 +226,8 @@ Map::Map(int level, sf::Vector2f topLeftCorner, TextureHolder& textures) : textu
 
 	char start[10][15] = {	'G','G','G','G','.','G','G','G','G','G','G','G','G','G','E',
 							'G','G','G','G','.','G','G','G','G','G','.','.','.','S','G',
-							'G','G','G','G','.','.','.','.','.','.','.','G','G','G','G',
-							'G','G','G','G','G','G','G','.','G','G','G','G','G','G','G',
+							'G','G','B','G','.','.','.','.','.','.','.','G','G','G','G',
+							'G','G','G','G','B','G','G','.','G','G','G','G','G','G','G',
 							'G','G','G','G','G','G','G','G','G','G','G','G','G','G','G',
 							'G','B','G','G','G','G','G','G','G','G','G','G','G','G','G',
 							'G','B','G','G','G','G','G','G','G','G','G','G','G','G','G',
@@ -243,9 +237,9 @@ Map::Map(int level, sf::Vector2f topLeftCorner, TextureHolder& textures) : textu
 
 	reshapeArray(start, levelDesign);
 
-	for (size_t i = 0; i < brColls; i++)
+	for (size_t i = 0; i < BR_COLLS; i++)
 	{
-		for (size_t j = 0; j < brRows; j++)
+		for (size_t j = 0; j < BR_ROWS; j++)
 		{
 			map[i][j] = nullptr;
 		}
@@ -283,9 +277,9 @@ void Map::update(sf::Time& elapsedTime)
 }
 void Map::render(sf::RenderTarget* target)
 {
-	for (size_t i = 0; i < brColls; i++)
+	for (size_t i = 0; i < BR_COLLS; i++)
 	{
-		for (size_t j = 0; j < brRows; j++)
+		for (size_t j = 0; j < BR_ROWS; j++)
 		{
 			if (map[i][j] != nullptr)
 			{
@@ -332,8 +326,8 @@ void Map::createCircle(int x, int y)
 	if (map[x][y] == nullptr)
 	{
 		
-		map[x][y] = new sf::CircleShape(tunnelWidth);
-		map[x][y]->setPosition(sf::Vector2f(topLeftCorner.x+x*14,topLeftCorner.y+y*14));
+		map[x][y] = new sf::CircleShape(TUNNEL_WIDTH);
+		map[x][y]->setPosition(sf::Vector2f(topLeftCorner.x+x* PIXELS_BETWEEN_TWO_CIRCLES ,topLeftCorner.y+y* PIXELS_BETWEEN_TWO_CIRCLES));
 		diggedSpots[x][y] = true;
 	}
 }

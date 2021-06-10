@@ -24,7 +24,7 @@ MoneyBag::MoneyBag(int x, int y, sf::Vector2f topLeftPos, TextureHolder& texture
 
 	sprite.setTexture(textures.get(Textures::MoneyBag));
 	sprite.scale(scale, scale);
-	sprite.setPosition(14 * x + topLeftPos.x + ofsetLeft, 14 * y + topLeftPos.y + ofsetTop);
+	sprite.setPosition(Map::PIXELS_BETWEEN_TWO_CIRCLES * x + topLeftPos.x + ofsetLeft, Map::PIXELS_BETWEEN_TWO_CIRCLES * y + topLeftPos.y + ofsetTop);
 }
 
 const MoneyBag& MoneyBag::operator=(const MoneyBag& other)
@@ -60,7 +60,7 @@ void MoneyBag::update(sf::Time& elapsedTime, Map* diggedSpots)
 			if (timerForMovment >= movingEvrySeconds)
 			{
 				timerForMovment = 0.f;
-				sprite.move(-14, 0);
+				sprite.move(-Map::PIXELS_BETWEEN_TWO_CIRCLES, 0);
 				x--;
 				if (x % 5 == 1)
 				{
@@ -76,7 +76,7 @@ void MoneyBag::update(sf::Time& elapsedTime, Map* diggedSpots)
 				if (timerForMovment >= movingEvrySeconds)
 				{
 					timerForMovment = 0.f;
-					sprite.move(14, 0);
+					sprite.move(Map::PIXELS_BETWEEN_TWO_CIRCLES, 0);
 					x++;
 					if (x % 5 == 1)
 					{
@@ -86,14 +86,14 @@ void MoneyBag::update(sf::Time& elapsedTime, Map* diggedSpots)
 			}
 		}
 
-		if (y < Map::brRows - 2)
+		if (y < Map::BR_ROWS - 2)
 		{
 			const bool** diggedSpot = diggedSpots->getDiggedSpots();
 			
 			if (y % 5 == 1)
 			{
 				
-				if (diggedSpot[x][y + 5] || (y<(Map::brRows - 7) && diggedSpot[x][y + 8])  )
+				if (diggedSpot[x][y + 5] || (y<(Map::BR_ROWS - 7) && diggedSpot[x][y + 8])  )
 				{
 					if (falling)
 					{
@@ -101,7 +101,7 @@ void MoneyBag::update(sf::Time& elapsedTime, Map* diggedSpots)
 
 						diggedSpots->createCircle(x, y);
 						timerForMovment = 0.f;
-						sprite.move(0, 14);
+						sprite.move(0, Map::PIXELS_BETWEEN_TWO_CIRCLES);
 						y++;
 					}
 					else
@@ -135,7 +135,7 @@ void MoneyBag::update(sf::Time& elapsedTime, Map* diggedSpots)
 					{
 						diggedSpots->createCircle(x, y);
 						timerForMovment = 0.f;
-						sprite.move(0, 14);
+						sprite.move(0, Map::PIXELS_BETWEEN_TWO_CIRCLES);
 						y++;
 					}
 				}
@@ -167,16 +167,16 @@ void MoneyBag::moveLeft()
 	if (x > 1)
 	{
 		movingLeft = true;
-		sprite.move(-14, 0);
+		sprite.move(-Map::PIXELS_BETWEEN_TWO_CIRCLES, 0);
 		x--;
 	}	
 }
 void MoneyBag::moveRight()
 {
-	if (x<Map::brColls-2)
+	if (x<Map::BR_COLLS-2)
 	{
 		movingRight = true;
-		sprite.move(14, 0);
+		sprite.move(Map::PIXELS_BETWEEN_TWO_CIRCLES, 0);
 		x++;
 	}
 	

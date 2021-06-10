@@ -23,9 +23,6 @@ public:
 	void load(Identifier id, const std::string& filename);
 	void insertResource(Identifier id, std::unique_ptr<Resource> resource);
 
-	template <typename Parameter>
-	void load(Identifier id, const std::string& filename, const Parameter& secondParam);
-
 	Resource& get(Identifier id);
 	const Resource& get(Identifier id) const;
 };

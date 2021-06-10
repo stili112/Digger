@@ -2,7 +2,6 @@
 
 #include"Animation.h"
 
-// Forward declaration of SFML classes
 namespace sf
 {
 	class Texture;
@@ -59,7 +58,6 @@ namespace Fonts
 	};
 }
 
-// Forward declaration and a few type definitions
 template <typename Resource, typename Identifier>
 class ResourceHolder;
 

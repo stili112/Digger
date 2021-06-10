@@ -1,4 +1,9 @@
-﻿  Game.cpp
+﻿  Digger.cpp
+  DiggerPlayer.cpp
+  Emerald.cpp
+  Game.cpp
   Map.cpp
+  MoneyBag.cpp
+  Play.cpp
   Generating Code...
   Digger.vcxproj -> E:\Digger\Debug\Digger.exe

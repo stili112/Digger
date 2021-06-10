@@ -10,6 +10,7 @@
 
 #include"ResourceHolder.hpp"
 #include"ResourceIdentifiers.hpp"
+#include"StringHelpers.hpp"
 
 #include"Emerald.h"
 #include"MoneyBag.h"
@@ -18,17 +19,19 @@ class Map
 {
 public:
 	//ConstValues
-	static const int tunnelWidth = 33;
-	static const int enemySpawnPositionTunelWidth = 47;
+	static const int TUNNEL_WIDTH = 33;
+	static const int ENEMY_SPAWN_POSITION_TUNEL_WIDTH = 47;
 
-	static const int brRows = 48;
-	static const int brColls = 73;
+	static const int BR_ROWS = 48;
+	static const int BR_COLLS = 73;
+
+	static const float PIXELS_BETWEEN_TWO_CIRCLES;
 
 private:
 
 	//design
 	char levelDesign[15][10];
-	sf::CircleShape* map[brColls][brRows];
+	sf::CircleShape* map[BR_COLLS][BR_ROWS];
 	bool** diggedSpots;
 
 	//top left position
@@ -56,6 +59,7 @@ private:
 
 	void makeStartFormation();
 public:
+
 	Map(int level, sf::Vector2f topLeftCorner, TextureHolder& textures);
 	Map(const Map& other);
 	~Map();

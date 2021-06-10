@@ -11,6 +11,7 @@
 #include"ResourceIdentifiers.hpp"
 
 #include"HighScoreSystem.h"
+#include"DiggerPlayer.h"
 #include"Map.h"
 
 class Game
@@ -28,6 +29,7 @@ private:
 
 	//temp
 	Map* map;
+	DiggerPlayer* player;
 
 	//init
 	void initVariables();

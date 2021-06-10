@@ -9,6 +9,8 @@
 #include"ResourceHolder.hpp"
 #include"ResourceIdentifiers.hpp"
 
+class Map;
+
 class Emerald
 {
 private:
