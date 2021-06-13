@@ -90,6 +90,5 @@ public:
 	void spawnBonus();
 	void deleteBonus();
 	
-	void loadMap(int level);
 };
 

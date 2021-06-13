@@ -330,7 +330,7 @@ void Play::updateLivesAndGameOver()
 	{
 		sf::Sprite liveIcone(textures.get(Textures::LIVE_ICONE));
 		liveIcone.scale(3, 3);
-		liveIcone.setPosition(ofsetLeft,10);
+		liveIcone.setPosition((float)ofsetLeft,10);
 
 		lives.clear();
 		lives.push_back(liveIcone);
@@ -341,7 +341,7 @@ void Play::updateLivesAndGameOver()
 	{
 		sf::Sprite liveIcone(textures.get(Textures::LIVE_ICONE));
 		liveIcone.scale(3, 3);
-		liveIcone.setPosition(ofsetLeft, 10);
+		liveIcone.setPosition((float)ofsetLeft, 10);
 
 		lives.clear();
 		lives.push_back(liveIcone);

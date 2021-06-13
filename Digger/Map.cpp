@@ -401,18 +401,3 @@ void Map::deleteBonus()
 		bonus = nullptr;
 	}
 }
-
-void Map::loadMap(int level)
-{
-	readFromFile(level);
-
-	for (size_t i = 0; i < BR_COLLS; i++)
-	{
-		for (size_t j = 0; j < BR_ROWS; j++)
-		{
-			map[i][j] = nullptr;
-		}
-	}
-
-	makeStartFormation();
-}

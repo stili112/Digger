@@ -130,7 +130,7 @@ void Enemy::copyEnemy(const Enemy& other)
 //constructors destructor
 Enemy::Enemy(int x, int y, sf::Vector2f topLeftCorner, TextureHolder& textures, AnimationHolder& animations) : textures(textures) , animations(animations)
 {
-	srand(time(0));
+	srand(time(NULL));
 	this->x = x;
 	this->y = y;
 	this->topLeftCorner = topLeftCorner;

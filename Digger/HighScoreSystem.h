@@ -24,11 +24,12 @@ private:
 	//functions
 	void loadFromFile();
 	void saveToFile();
+
+	void sortHighScores();
 public:
 	HighScoreSystem();
 	~HighScoreSystem();
-
-	void sortHighScores();
+	
 	void updateHightScore();
 
 	void reseteCurrentScore();

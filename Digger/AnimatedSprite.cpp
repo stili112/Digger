@@ -48,15 +48,6 @@ void AnimatedSprite::setLooped(bool looped)
     this->looped = looped;
 }
 
-void AnimatedSprite::setColor(const sf::Color& color)
-{
-    // Update the vertices' color
-    vertices[0].color = color;
-    vertices[1].color = color;
-    vertices[2].color = color;
-    vertices[3].color = color;
-}
-
 const Animation* AnimatedSprite::getAnimation() const
 {
     return animation;
