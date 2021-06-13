@@ -45,7 +45,7 @@ void AnimatedSprite::stop()
 
 void AnimatedSprite::setLooped(bool looped)
 {
-    looped = looped;
+    this->looped = looped;
 }
 
 void AnimatedSprite::setColor(const sf::Color& color)

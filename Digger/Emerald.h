@@ -15,8 +15,8 @@ class Emerald
 {
 private:
 	//const
-	static const int ofsetTop;
-	static const int ofsetLeft;
+	static const int OFSET_TOP;
+	static const int OFSET_LEFT;
 
 	sf::Sprite sprite;
 

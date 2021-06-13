@@ -17,15 +17,32 @@ void Map::initDiggedSpots()
 		}
 	}
 }
+void Map::initBackground()
+{
+	background.setPosition(topLeftCorner.x, topLeftCorner.y);
+	background.setTexture(textures.get(Textures::BACKGROUND));
+	background.scale(3, 3);
+	background.setTextureRect(sf::IntRect(0,0,1280, 720));
+}
 
 //functions
 void Map::copyMap(const Map& other)
 {
+	background = background;
 	topLeftCorner = other.topLeftCorner;
 	playerStartPos = other.playerStartPos;
 	enemySpawnPos = other.enemySpawnPos;
 	emeralds = other.emeralds;
 	moneyBags = other.moneyBags;
+
+	if (other.bonus != nullptr)
+	{
+		bonus = new Bonus(*other.bonus);
+	}
+	else
+	{
+		bonus = nullptr;
+	}
 
 	//levelDesign char[15][10]
 	for (size_t i = 0; i < 15; i++)
@@ -50,11 +67,15 @@ void Map::copyMap(const Map& other)
 		{
 			diggedSpots[i][j] = other.diggedSpots[i][j];
 			map[i][j] = new sf::CircleShape(other.map[i][j]->getRadius());
+			map[i][j]->setFillColor(sf::Color::Black);
 		}
 	}
 }
 void Map::deleteMap()
 {
+	delete bonus;
+	bonus = nullptr;
+
 	for (size_t i = 0; i < BR_COLLS; i++)
 	{
 		for (size_t j = 0; j < BR_ROWS; j++)
@@ -80,13 +101,14 @@ void Map::reshapeArray(char from[10][15], char to[15][10])
 void Map::makeStartFormation()
 {
 	sf::CircleShape circle(TUNNEL_WIDTH);
+	circle.setFillColor(sf::Color::Black);
 	for (size_t i = 0; i < 15; i++)
 	{
 		for (size_t j = 0; j < 10; j++)
 		{
-			if (levelDesign[i][j] == '.' || levelDesign[i][j] == 'S')
+			if (levelDesign[i][j] == '.' || levelDesign[i][j] == 'S' || levelDesign[i][j] == 'D')
 			{
-				if (levelDesign[i][j] == '.')
+				if (levelDesign[i][j] == '.' || levelDesign[i][j] == 'D')
 				{
 					circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 					map[1 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
@@ -94,7 +116,7 @@ void Map::makeStartFormation()
 
 				if (i > 0)
 				{
-					if (levelDesign[i - 1][j] == '.' || levelDesign[i - 1][j] == 'S')
+					if (levelDesign[i - 1][j] == '.' || levelDesign[i - 1][j] == 'S' || levelDesign[i - 1][j] == 'D')
 					{
 						circle.setPosition(topLeftCorner.x + (i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 						map[i * 5][1 + j * 5] = new sf::CircleShape(circle);
@@ -111,7 +133,7 @@ void Map::makeStartFormation()
 
 				if (i < 14)
 				{
-					if (levelDesign[i + 1][j] == '.' || levelDesign[i + 1][j] == 'S')
+					if (levelDesign[i + 1][j] == '.' || levelDesign[i + 1][j] == 'S' || levelDesign[i + 1][j] == 'D')
 					{
 						circle.setPosition(topLeftCorner.x + (2 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 						map[2 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
@@ -128,7 +150,7 @@ void Map::makeStartFormation()
 
 				if (j > 0)
 				{
-					if (levelDesign[i][j - 1] == '.' || levelDesign[i][j - 1] == 'S')
+					if (levelDesign[i][j - 1] == '.' || levelDesign[i][j - 1] == 'S' || levelDesign[i][j - 1] == 'D')
 					{
 						circle.setPosition(topLeftCorner.x + (1 +i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 						map[1 +i * 5][ j * 5] = new sf::CircleShape(circle);
@@ -140,7 +162,7 @@ void Map::makeStartFormation()
 
 				if (j < 9)
 				{
-					if (levelDesign[i][j + 1] == '.' || levelDesign[i][j + 1] == 'S')
+					if (levelDesign[i][j + 1] == '.' || levelDesign[i][j + 1] == 'S' || levelDesign[i][j + 1] == 'D')
 					{
 						circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (2 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
 						map[1 + i * 5][2 +j * 5] = new sf::CircleShape(circle);
@@ -219,23 +241,43 @@ void Map::makeStartFormation()
 	}
 }
 
+void Map::readFromFile(int level)
+{
+	char temp[10][15];
+
+	std::string fileName="Maps/level";
+	fileName.append(toString(level));
+	fileName.append(".txt");
+
+	std::ifstream in(fileName);
+	if (in.is_open())
+	{
+		for (size_t i = 0; i < 10; i++)
+		{
+			for (size_t j = 0; j < 15; j++)
+			{
+				in >> temp[i][j];
+			}
+		}
+
+		reshapeArray(temp, levelDesign);
+
+		in.close();
+	}
+	else
+	{
+		throw std::logic_error("Cant open: " + fileName);
+	}
+}
+
 //public
 Map::Map(int level, sf::Vector2f topLeftCorner, TextureHolder& textures) : textures(textures)
 {
 	this->topLeftCorner = topLeftCorner;
 
-	char start[10][15] = {	'G','G','G','G','.','G','G','G','G','G','G','G','G','G','E',
-							'G','G','G','G','.','G','G','G','G','G','.','.','.','S','G',
-							'G','G','B','G','.','.','.','.','.','.','.','G','G','G','G',
-							'G','G','G','G','B','G','G','.','G','G','G','G','G','G','G',
-							'G','G','G','G','G','G','G','G','G','G','G','G','G','G','G',
-							'G','B','G','G','G','G','G','G','G','G','G','G','G','G','G',
-							'G','B','G','G','G','G','G','G','G','G','G','G','G','G','G',
-							'G','.','G','G','G','G','G','G','G','G','G','G','G','G','G',
-							'G','.','G','G','G','G','G','G','G','G','G','G','G','G','G',
-							'B','G','G','G','G','G','G','G','G','G','G','G','G','G','.' };
+	bonus = nullptr;
 
-	reshapeArray(start, levelDesign);
+	readFromFile(level);
 
 	for (size_t i = 0; i < BR_COLLS; i++)
 	{
@@ -246,6 +288,7 @@ Map::Map(int level, sf::Vector2f topLeftCorner, TextureHolder& textures) : textu
 	}
 
 	initDiggedSpots();
+	initBackground();
 	makeStartFormation();
 
 }
@@ -277,6 +320,8 @@ void Map::update(sf::Time& elapsedTime)
 }
 void Map::render(sf::RenderTarget* target)
 {
+	target->draw(background);
+
 	for (size_t i = 0; i < BR_COLLS; i++)
 	{
 		for (size_t j = 0; j < BR_ROWS; j++)
@@ -296,6 +341,11 @@ void Map::render(sf::RenderTarget* target)
 	{
 		moneyBags[i].render(target);
 	}
+
+	if (bonus != nullptr)
+	{
+		bonus->render(target);
+	}
 }
 
 
@@ -311,13 +361,17 @@ const bool** Map::getDiggedSpots() const
 {
 	return const_cast<const bool**>(diggedSpots);
 }
-const std::vector<Emerald>& Map::getEmeralds() const
+std::vector<Emerald>& Map::getEmeralds()
 {
 	return emeralds;
 }
-const std::vector<MoneyBag>& Map::getMoneyBags() const
+std::vector<MoneyBag>& Map::getMoneyBags()
 {
 	return moneyBags;
+}
+Bonus* Map::getBonus()
+{
+	return bonus;
 }
 
 
@@ -327,7 +381,38 @@ void Map::createCircle(int x, int y)
 	{
 		
 		map[x][y] = new sf::CircleShape(TUNNEL_WIDTH);
+		map[x][y]->setFillColor(sf::Color::Black);
 		map[x][y]->setPosition(sf::Vector2f(topLeftCorner.x+x* PIXELS_BETWEEN_TWO_CIRCLES ,topLeftCorner.y+y* PIXELS_BETWEEN_TWO_CIRCLES));
 		diggedSpots[x][y] = true;
 	}
+}
+void Map::spawnBonus()
+{
+	if (bonus == nullptr)
+	{
+		bonus = new Bonus(enemySpawnPos.x, enemySpawnPos.y, topLeftCorner, textures, 3);
+	}	
+}
+void Map::deleteBonus()
+{
+	if (bonus != nullptr)
+	{
+		delete bonus;
+		bonus = nullptr;
+	}
+}
+
+void Map::loadMap(int level)
+{
+	readFromFile(level);
+
+	for (size_t i = 0; i < BR_COLLS; i++)
+	{
+		for (size_t j = 0; j < BR_ROWS; j++)
+		{
+			map[i][j] = nullptr;
+		}
+	}
+
+	makeStartFormation();
 }

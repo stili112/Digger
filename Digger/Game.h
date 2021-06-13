@@ -11,8 +11,10 @@
 #include"ResourceIdentifiers.hpp"
 
 #include"HighScoreSystem.h"
+#include"MainMenu.h"
 #include"DiggerPlayer.h"
 #include"Map.h"
+#include"Play.h"
 
 class Game
 {
@@ -20,24 +22,24 @@ private:
 	//window
 	sf::RenderWindow* window;
 
+	HighScoreSystem highScoreSystem;
+
+	//main menu
+	MainMenu* menu;
+
+	//in game
+	Play* play;
+
 	//Resource houders
 	TextureHolder textures;
-	MusicHolder musics;
-	SoundHolder sounds;
 	AnimationHolder animations;
 	FontHolder fonts;
-
-	//temp
-	Map* map;
-	DiggerPlayer* player;
 
 	//init
 	void initVariables();
 	void initWindow();
 	void initTextures();
 	void initAnimation();
-	void initSound();
-	void initMusic();
 	void initFonts();
 
 	//update

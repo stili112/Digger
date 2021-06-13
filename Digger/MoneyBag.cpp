@@ -4,7 +4,7 @@
 
 //private
 const float MoneyBag::movingEvrySeconds = 0.1f;
-const float MoneyBag::timeBeforeStartFalling = 0.75f;
+const float MoneyBag::timeBeforeStartFalling = 1.75f;
 const int MoneyBag::ofsetTop = 9;
 const int MoneyBag::ofsetLeft = 9;
 
@@ -22,7 +22,7 @@ MoneyBag::MoneyBag(int x, int y, sf::Vector2f topLeftPos, TextureHolder& texture
 	movingLeft = false;
 	movingRight = false;
 
-	sprite.setTexture(textures.get(Textures::MoneyBag));
+	sprite.setTexture(textures.get(Textures::MONEY_BAG));
 	sprite.scale(scale, scale);
 	sprite.setPosition(Map::PIXELS_BETWEEN_TWO_CIRCLES * x + topLeftPos.x + ofsetLeft, Map::PIXELS_BETWEEN_TWO_CIRCLES * y + topLeftPos.y + ofsetTop);
 }
@@ -31,23 +31,23 @@ const MoneyBag& MoneyBag::operator=(const MoneyBag& other)
 {
 	if (this != &other)
 	{
-		x=other.x;
-		y=other.y;
-
-		//move
-		movingLeft=other.movingLeft;
-		movingRight=other.movingRight;
-		timerForMovment = other.timerForMovment;
-		timerBeforeFaling= other.timerBeforeFaling;
-		brTunelMoneyBagFallen = other.brTunelMoneyBagFallen;
-		moneyBagIsBrocken = other.moneyBagIsBrocken;
-		sprite= other.sprite;
+		x = other.x;
+		y = other.y;
 		falling = other.falling;
+		timerForMovment = other.timerForMovment;
+		moneyBagIsBrocken = other.moneyBagIsBrocken;
+		brTunelMoneyBagFallen = other.brTunelMoneyBagFallen;
+		timerBeforeFaling = other.timerBeforeFaling;
 
-		topLeftPos=other.topLeftPos;
+		movingLeft = other.movingLeft;
+		movingRight = other.movingRight;
+
+		sprite = other.sprite;
 	}
 	return *this;
+
 }
+
 
 void MoneyBag::update(sf::Time& elapsedTime, Map* diggedSpots)
 {
@@ -154,7 +154,7 @@ void MoneyBag::update(sf::Time& elapsedTime, Map* diggedSpots)
 	}
 	else
 	{
-		sprite.setTexture(textures.get(Textures::Coins));
+		sprite.setTexture(textures.get(Textures::COINS));
 	}
 }
 void MoneyBag::render(sf::RenderTarget* target)
@@ -185,6 +185,11 @@ void MoneyBag::moveRight()
 sf::FloatRect MoneyBag::getBounds() const
 {
 	return sprite.getGlobalBounds();
+}
+sf::Vector2i MoneyBag::getPosition() const
+{
+	sf::Vector2i pos(x,y);
+	return pos;
 }
 bool MoneyBag::moneyBagIsFalling() const
 {

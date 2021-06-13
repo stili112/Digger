@@ -12,14 +12,17 @@
 #include"Animation.h"
 #include"Map.h"
 
+
+class Bullet;
+
 namespace playerFacing
 {
 	enum Facing
 	{
-		Right,
-		Left,
-		Up,
-		Down
+		RIGHT,
+		LEFT,
+		UP,
+		DOWN
 	};
 }
 
@@ -35,6 +38,14 @@ private:
 	float timerForMovment;
 
 	playerFacing::Facing playerIsFacing;
+
+	//fire bullet
+	static const float TIME_BEFORE_FIRE;
+	float timerForFire;
+	Bullet* bullet;
+
+	//player is death
+	bool death;
 
 	//position
 	int x;
@@ -58,6 +69,11 @@ private:
 	void moveDown(Map* map);
 	void moveLeft(Map* map);
 	void moveRight( Map* map);
+
+	void updateAnimationCantAndCanFire();
+
+	void updateBullet(sf::Time& elapsedTime, Map* map);
+	void fireBullet();
 	
 public:
 	DiggerPlayer(int x,int y, sf::Vector2f topLeftCorner, TextureHolder& textures, AnimationHolder& animations);
@@ -68,7 +84,17 @@ public:
 	//render
 	void render(sf::RenderTarget* target);
 
+	void deleteBullet();
+
+	void deathPlayer();
+
+	//set
+	void setPosition(int x,int y);
+
 	//get
 	sf::FloatRect getBound() const;
+	bool getDeath() const;
+	const Bullet* getBullet() const;
+	sf::Vector2i getPosition() const;
 };
 

@@ -46,10 +46,13 @@ public:
 	void update(sf::Time& elapsedTime, Map* diggedSpots);
 	void render(sf::RenderTarget* target);
 
+	//move
 	void moveLeft();
 	void moveRight();
 
+	//get
 	sf::FloatRect getBounds() const;
+	sf::Vector2i getPosition() const;
 	bool moneyBagIsFalling() const;
 	bool getMoneyBagIsBrocken() const;
 };

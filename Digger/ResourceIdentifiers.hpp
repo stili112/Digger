@@ -11,42 +11,38 @@ namespace Textures
 {
 	enum ID
 	{
-		Digger,
-		Nobbin,
-		Hobbin,
-		Bonus,
-		Emerald,
-		MoneyBag,
-		Coins
+		DIGGER_CAN_FIRE,
+		DIGGER_CANT_FIRE,
+		RIP,
+		NOBBIN,
+		HOBBIN,
+		BONUS,
+		EMERALD,
+		MONEY_BAG,
+		COINS,
+		BULLET,
+		BACKGROUND,
+		LIVE_ICONE
 	};
 }
 
-namespace Sound
-{
-	enum ID
-	{
-		d
-	};
-}
-
-namespace Music
-{
-	enum ID
-	{
-		d
-	};
-}
 namespace Animations
 {
 	enum ID
 	{
-		DiggerMoveLeft,
-		DiggerMoveRight,
-		DiggerMoveUp,
-		DiggerMoveDown,
-		HobbinMoveLeft,
-		HobbinMoveRight,
-		Nobbin
+		DIGGER_MOVE_LEFT_CANT_FIRE,
+		DIGGER_MOVE_RIGHT_CANT_FIRE,
+		DIGGER_MOVE_UP_CANT_FIRE,
+		DIGGER_MOVE_DOWN_CANT_FIRE,
+		DIGGER_MOVE_LEFT_CAN_FIRE,
+		DIGGER_MOVE_RIGHT_CAN_FIRE,
+		DIGGER_MOVE_UP_CAN_FIRE,
+		DIGGER_MOVE_DOWN_CAN_FIRE,
+		RIP_ANIMATION,
+		HOBBIN_MOVE_LEFT,
+		HOBBIN_MOVE_RIGHR,
+		NOBBIN_ANIMATION,
+		BULLET_ANIMATIONS
 	};
 }
 
@@ -62,10 +58,6 @@ template <typename Resource, typename Identifier>
 class ResourceHolder;
 
 typedef ResourceHolder<sf::Texture, Textures::ID> TextureHolder;
-
-typedef ResourceHolder<sf::Sound, Sound::ID> SoundHolder;
-
-typedef ResourceHolder<sf::Music, Music::ID> MusicHolder;
 
 typedef ResourceHolder<Animation, Animations::ID> AnimationHolder;
 

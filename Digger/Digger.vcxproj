@@ -147,6 +147,8 @@
   <ItemGroup>
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Bonus.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Digger.cpp" />
     <ClCompile Include="DiggerPlayer.cpp" />
     <ClCompile Include="Emerald.cpp" />
@@ -157,10 +159,13 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MoneyBag.cpp" />
     <ClCompile Include="Play.cpp" />
+    <ClCompile Include="Score.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Bonus.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="DiggerPlayer.h" />
     <ClInclude Include="Emerald.h" />
     <ClInclude Include="Enemy.h" />
@@ -172,6 +177,7 @@
     <ClInclude Include="Play.h" />
     <ClInclude Include="ResourceHolder.hpp" />
     <ClInclude Include="ResourceIdentifiers.hpp" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="StringHelpers.hpp" />
   </ItemGroup>
   <ItemGroup>

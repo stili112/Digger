@@ -10,53 +10,103 @@ void Game::initVariables()
 }
 void Game::initWindow()
 {
-	window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Digger", sf::Style::Close | sf::Style::Titlebar);
+	window = new sf::RenderWindow(sf::VideoMode(1074, 794), "Digger", sf::Style::Close | sf::Style::Titlebar);
 }
 void Game::initTextures()
 {
-	textures.load(Textures::Digger, "Textures/Digger.png");
-	textures.load(Textures::Hobbin, "Textures/Hobbin.png");
-	textures.load(Textures::Nobbin, "Textures/Nobbin.png");
-	textures.load(Textures::Bonus, "Textures/Bonus.png");
-	textures.load(Textures::MoneyBag, "Textures/MoneyBag.png");
-	textures.load(Textures::Emerald, "Textures/Emerald.png");
-	textures.load(Textures::Coins, "Textures/Coins.png");
+	textures.load(Textures::DIGGER_CAN_FIRE, "Textures/DiggerCanFire.png");
+	textures.load(Textures::DIGGER_CANT_FIRE, "Textures/DiggerCantFire.png");
+	textures.load(Textures::HOBBIN, "Textures/Hobbin.png");
+	textures.load(Textures::NOBBIN, "Textures/Nobbin.png");
+	textures.load(Textures::BONUS, "Textures/Bonus.png");
+	textures.load(Textures::MONEY_BAG, "Textures/MoneyBag.png");
+	textures.load(Textures::EMERALD, "Textures/Emerald.png");
+	textures.load(Textures::COINS, "Textures/Coins.png");
+	textures.load(Textures::BULLET, "Textures/Bullet.png");
+	textures.load(Textures::RIP, "Textures/Rip.png");
+	textures.load(Textures::BACKGROUND, "Textures/Background.png");
+	textures.load(Textures::LIVE_ICONE, "Textures/DiggerLiveIcone.png");
+
+	textures.get(Textures::BACKGROUND).setRepeated(true);
 }
 void Game::initAnimation()
 {
 	//digger
-	sf::Texture& diggerTexture = textures.get(Textures::Digger);
+	//can fire Bullet
+	sf::Texture& diggerCanFireTexture = textures.get(Textures::DIGGER_CAN_FIRE);
 
-	Animation diggerWalkingAnimationRight;
-	diggerWalkingAnimationRight.setSpriteSheet(diggerTexture);
-	diggerWalkingAnimationRight.addFrame(sf::IntRect(0, 0, 16, 16));
-	diggerWalkingAnimationRight.addFrame(sf::IntRect(16, 0, 16, 16));
-	diggerWalkingAnimationRight.addFrame(sf::IntRect(32, 0, 16, 16));
-	diggerWalkingAnimationRight.addFrame(sf::IntRect(48, 0, 16, 16));
+	Animation diggerCanFireWalkingAnimationRight;
+	diggerCanFireWalkingAnimationRight.setSpriteSheet(diggerCanFireTexture);
+	diggerCanFireWalkingAnimationRight.addFrame(sf::IntRect(0, 0, 16, 16));
+	diggerCanFireWalkingAnimationRight.addFrame(sf::IntRect(16, 0, 16, 16));
+	diggerCanFireWalkingAnimationRight.addFrame(sf::IntRect(32, 0, 16, 16));
+	diggerCanFireWalkingAnimationRight.addFrame(sf::IntRect(48, 0, 16, 16));
 
-	Animation diggerWalkingAnimationUp;
-	diggerWalkingAnimationUp.setSpriteSheet(diggerTexture);
-	diggerWalkingAnimationUp.addFrame(sf::IntRect(0, 16, 16, 16));
-	diggerWalkingAnimationUp.addFrame(sf::IntRect(16, 16, 16, 16));
-	diggerWalkingAnimationUp.addFrame(sf::IntRect(32, 16, 16, 16));
-	diggerWalkingAnimationUp.addFrame(sf::IntRect(48, 16, 16, 16));
+	Animation diggerCanFireWalkingAnimationUp;
+	diggerCanFireWalkingAnimationUp.setSpriteSheet(diggerCanFireTexture);
+	diggerCanFireWalkingAnimationUp.addFrame(sf::IntRect(0, 16, 16, 16));
+	diggerCanFireWalkingAnimationUp.addFrame(sf::IntRect(16, 16, 16, 16));
+	diggerCanFireWalkingAnimationUp.addFrame(sf::IntRect(32, 16, 16, 16));
+	diggerCanFireWalkingAnimationUp.addFrame(sf::IntRect(48, 16, 16, 16));
 
-	Animation diggerWalkingAnimationLeft;
-	diggerWalkingAnimationLeft.setSpriteSheet(diggerTexture);
-	diggerWalkingAnimationLeft.addFrame(sf::IntRect(0, 32, 16, 16));
-	diggerWalkingAnimationLeft.addFrame(sf::IntRect(16, 32, 16, 16));
-	diggerWalkingAnimationLeft.addFrame(sf::IntRect(32, 32, 16, 16));
-	diggerWalkingAnimationLeft.addFrame(sf::IntRect(48, 32, 16, 16));
+	Animation diggerCanFireWalkingAnimationLeft;
+	diggerCanFireWalkingAnimationLeft.setSpriteSheet(diggerCanFireTexture);
+	diggerCanFireWalkingAnimationLeft.addFrame(sf::IntRect(0, 32, 16, 16));
+	diggerCanFireWalkingAnimationLeft.addFrame(sf::IntRect(16, 32, 16, 16));
+	diggerCanFireWalkingAnimationLeft.addFrame(sf::IntRect(32, 32, 16, 16));
+	diggerCanFireWalkingAnimationLeft.addFrame(sf::IntRect(48, 32, 16, 16));
 
-	Animation diggerWalkingAnimationDown;
-	diggerWalkingAnimationDown.setSpriteSheet(diggerTexture);
-	diggerWalkingAnimationDown.addFrame(sf::IntRect(0, 48, 16, 16));
-	diggerWalkingAnimationDown.addFrame(sf::IntRect(16, 48, 16, 16));
-	diggerWalkingAnimationDown.addFrame(sf::IntRect(32, 48, 16, 16));
-	diggerWalkingAnimationDown.addFrame(sf::IntRect(48, 48, 16, 16));
+	Animation diggerCanFireWalkingAnimationDown;
+	diggerCanFireWalkingAnimationDown.setSpriteSheet(diggerCanFireTexture);
+	diggerCanFireWalkingAnimationDown.addFrame(sf::IntRect(0, 48, 16, 16));
+	diggerCanFireWalkingAnimationDown.addFrame(sf::IntRect(16, 48, 16, 16));
+	diggerCanFireWalkingAnimationDown.addFrame(sf::IntRect(32, 48, 16, 16));
+	diggerCanFireWalkingAnimationDown.addFrame(sf::IntRect(48, 48, 16, 16));
+
+	//cant Fire Bullet
+	sf::Texture& diggerCantFireTexture = textures.get(Textures::DIGGER_CANT_FIRE);
+
+	Animation diggerCantFireWalkingAnimationRight;
+	diggerCantFireWalkingAnimationRight.setSpriteSheet(diggerCantFireTexture);
+	diggerCantFireWalkingAnimationRight.addFrame(sf::IntRect(0, 0, 16, 16));
+	diggerCantFireWalkingAnimationRight.addFrame(sf::IntRect(16, 0, 16, 16));
+	diggerCantFireWalkingAnimationRight.addFrame(sf::IntRect(32, 0, 16, 16));
+	diggerCantFireWalkingAnimationRight.addFrame(sf::IntRect(48, 0, 16, 16));
+
+	Animation diggerCantFireWalkingAnimationUp;
+	diggerCantFireWalkingAnimationUp.setSpriteSheet(diggerCantFireTexture);
+	diggerCantFireWalkingAnimationUp.addFrame(sf::IntRect(0, 16, 16, 16));
+	diggerCantFireWalkingAnimationUp.addFrame(sf::IntRect(16, 16, 16, 16));
+	diggerCantFireWalkingAnimationUp.addFrame(sf::IntRect(32, 16, 16, 16));
+	diggerCantFireWalkingAnimationUp.addFrame(sf::IntRect(48, 16, 16, 16));
+
+	Animation diggerCantFireWalkingAnimationLeft;
+	diggerCantFireWalkingAnimationLeft.setSpriteSheet(diggerCantFireTexture);
+	diggerCantFireWalkingAnimationLeft.addFrame(sf::IntRect(0, 32, 16, 16));
+	diggerCantFireWalkingAnimationLeft.addFrame(sf::IntRect(16, 32, 16, 16));
+	diggerCantFireWalkingAnimationLeft.addFrame(sf::IntRect(32, 32, 16, 16));
+	diggerCantFireWalkingAnimationLeft.addFrame(sf::IntRect(48, 32, 16, 16));
+
+	Animation diggerCantFireWalkingAnimationDown;
+	diggerCantFireWalkingAnimationDown.setSpriteSheet(diggerCantFireTexture);
+	diggerCantFireWalkingAnimationDown.addFrame(sf::IntRect(0, 48, 16, 16));
+	diggerCantFireWalkingAnimationDown.addFrame(sf::IntRect(16, 48, 16, 16));
+	diggerCantFireWalkingAnimationDown.addFrame(sf::IntRect(32, 48, 16, 16));
+	diggerCantFireWalkingAnimationDown.addFrame(sf::IntRect(48, 48, 16, 16));
+
+	//Rip animation
+	sf::Texture& ripTexture = textures.get(Textures::RIP);
+
+	Animation ripAnimation;
+	ripAnimation.setSpriteSheet(ripTexture);
+	ripAnimation.addFrame(sf::IntRect(0, 0, 16, 16));
+	ripAnimation.addFrame(sf::IntRect(16, 0, 16, 16));
+	ripAnimation.addFrame(sf::IntRect(32, 0, 16, 16));
+	ripAnimation.addFrame(sf::IntRect(48, 0, 16, 16));
+	ripAnimation.addFrame(sf::IntRect(64, 0, 16, 16));
 
 	//Hobbin
-	sf::Texture& hobbinTexture = textures.get(Textures::Hobbin);
+	sf::Texture& hobbinTexture = textures.get(Textures::HOBBIN);
 
 	Animation hobbinWalkingAnimationRight;
 	hobbinWalkingAnimationRight.setSpriteSheet(hobbinTexture);
@@ -73,7 +123,7 @@ void Game::initAnimation()
 	hobbinrWalkingAnimationLeft.addFrame(sf::IntRect(48, 16, 16, 16));
 
 	//Nobbin
-	sf::Texture& nobbinTexture = textures.get(Textures::Nobbin);
+	sf::Texture& nobbinTexture = textures.get(Textures::NOBBIN);
 
 	Animation nobbinWalkingAnimationRight;
 	nobbinWalkingAnimationRight.setSpriteSheet(nobbinTexture);
@@ -81,40 +131,63 @@ void Game::initAnimation()
 	nobbinWalkingAnimationRight.addFrame(sf::IntRect(16, 0, 16, 16));
 	nobbinWalkingAnimationRight.addFrame(sf::IntRect(32, 0, 16, 16));
 	nobbinWalkingAnimationRight.addFrame(sf::IntRect(48, 0, 16, 16));
+
+	//Bullet
+	sf::Texture& bulletTexture = textures.get(Textures::BULLET);
+
+	Animation bulletAnimation;
+	bulletAnimation.setSpriteSheet(bulletTexture);
+	bulletAnimation.addFrame(sf::IntRect(0, 0, 16, 16));
+	bulletAnimation.addFrame(sf::IntRect(16, 0, 16, 16));
+	bulletAnimation.addFrame(sf::IntRect(32, 0, 16, 16));
 	
 	//add to animation holder
 	//digger
-	std::unique_ptr<Animation> diggerResourceRight(new Animation(diggerWalkingAnimationRight));
-	animations.insertResource(Animations::DiggerMoveRight, std::move(diggerResourceRight));
+	//can fire
+	std::unique_ptr<Animation> diggerCanFireResourceRight(new Animation(diggerCanFireWalkingAnimationRight));
+	animations.insertResource(Animations::DIGGER_MOVE_RIGHT_CAN_FIRE, std::move(diggerCanFireResourceRight));
 
-	std::unique_ptr<Animation> diggerResourceLeft(new Animation(diggerWalkingAnimationLeft));
-	animations.insertResource(Animations::DiggerMoveLeft, std::move(diggerResourceLeft));
+	std::unique_ptr<Animation> diggerCanFireResourceLeft(new Animation(diggerCanFireWalkingAnimationLeft));
+	animations.insertResource(Animations::DIGGER_MOVE_LEFT_CAN_FIRE, std::move(diggerCanFireResourceLeft));
 
-	std::unique_ptr<Animation> diggerResourceUp(new Animation(diggerWalkingAnimationUp));
-	animations.insertResource(Animations::DiggerMoveUp, std::move(diggerResourceUp));
+	std::unique_ptr<Animation> diggerCanFireResourceUp(new Animation(diggerCanFireWalkingAnimationUp));
+	animations.insertResource(Animations::DIGGER_MOVE_UP_CAN_FIRE, std::move(diggerCanFireResourceUp));
 
-	std::unique_ptr<Animation> diggerResourceDown(new Animation(diggerWalkingAnimationDown));
-	animations.insertResource(Animations::DiggerMoveDown, std::move(diggerResourceDown));
+	std::unique_ptr<Animation> diggerCanFireResourceDown(new Animation(diggerCanFireWalkingAnimationDown));
+	animations.insertResource(Animations::DIGGER_MOVE_DOWN_CAN_FIRE, std::move(diggerCanFireResourceDown));
+
+	//cant fire
+	std::unique_ptr<Animation> diggerCantFireResourceRight(new Animation(diggerCantFireWalkingAnimationRight));
+	animations.insertResource(Animations::DIGGER_MOVE_RIGHT_CANT_FIRE, std::move(diggerCantFireResourceRight));
+
+	std::unique_ptr<Animation> diggerCantFireResourceLeft(new Animation(diggerCantFireWalkingAnimationLeft));
+	animations.insertResource(Animations::DIGGER_MOVE_LEFT_CANT_FIRE, std::move(diggerCantFireResourceLeft));
+
+	std::unique_ptr<Animation> diggerCantFireResourceUp(new Animation(diggerCantFireWalkingAnimationUp));
+	animations.insertResource(Animations::DIGGER_MOVE_UP_CANT_FIRE, std::move(diggerCantFireResourceUp));
+
+	std::unique_ptr<Animation> diggerCantFireResourceDown(new Animation(diggerCantFireWalkingAnimationDown));
+	animations.insertResource(Animations::DIGGER_MOVE_DOWN_CANT_FIRE, std::move(diggerCantFireResourceDown));
+
+	std::unique_ptr<Animation> ripAnimationResource(new Animation(ripAnimation));
+	animations.insertResource(Animations::RIP_ANIMATION, std::move(ripAnimationResource));
+
 
 	//hobbin
 	std::unique_ptr<Animation> hobbinResourceRight(new Animation(hobbinWalkingAnimationRight));
-	animations.insertResource(Animations::HobbinMoveRight, std::move(hobbinResourceRight));
+	animations.insertResource(Animations::HOBBIN_MOVE_RIGHR, std::move(hobbinResourceRight));
 
 	std::unique_ptr<Animation> hobbinResourceLeft(new Animation(hobbinrWalkingAnimationLeft));
-	animations.insertResource(Animations::HobbinMoveLeft, std::move(hobbinResourceLeft));
+	animations.insertResource(Animations::HOBBIN_MOVE_LEFT, std::move(hobbinResourceLeft));
 
 	//nobbin
 	std::unique_ptr<Animation> nobbinResource(new Animation(nobbinWalkingAnimationRight));
-	animations.insertResource(Animations::Nobbin, std::move(nobbinResource));
-	
-}
-void Game::initSound()
-{
-	
-}
-void Game::initMusic()
-{
+	animations.insertResource(Animations::NOBBIN_ANIMATION, std::move(nobbinResource));
 
+	//bullet
+	std::unique_ptr<Animation> bulletResource(new Animation(bulletAnimation));
+	animations.insertResource(Animations::BULLET_ANIMATIONS, std::move(bulletResource));
+	
 }
 void Game::initFonts()
 {
@@ -138,8 +211,30 @@ void Game::processEvents()
 void Game::update(sf::Time& elapsedTime)
 {
 	processEvents();
-	map->update(elapsedTime);
-	player->update(elapsedTime, map);
+
+	if (play != nullptr)
+	{
+		play->update(elapsedTime);
+
+		if (play->getGameOver())
+		{
+			delete play;
+			play = nullptr;
+			menu = new MainMenu(highScoreSystem, animations, fonts, textures);
+		}
+	}
+	if (menu != nullptr)
+	{
+		menu->update(elapsedTime);
+
+		if (menu->getGoToPlay())
+		{
+			delete menu;
+			menu = nullptr;
+			play = new Play(textures, animations, fonts, highScoreSystem);
+		}
+	}
+	
 }
 
 //render
@@ -149,8 +244,14 @@ void Game::render(sf::RenderTarget* target)
 	window->clear();
 
 	//draw
-	map->render(target);
-	player->render(target);
+	if (play != nullptr)
+	{
+		play->render(target);
+	}
+	if (menu != nullptr)
+	{
+		menu->render(target);
+	}
 
 	//display
 	window->display();
@@ -161,6 +262,12 @@ void Game::deleteVariables()
 {
 	delete window;
 	window = nullptr;
+
+	delete play;
+	play = nullptr;
+
+	delete menu;
+	menu = nullptr;
 }
 
 
@@ -172,13 +279,11 @@ Game::Game()
 	initVariables();
 	initWindow();
 	initTextures();
-	initSound();
-	initMusic();
 	initFonts();
 	initAnimation();
 
-	map = new Map(1, sf::Vector2f(0, 0), textures);
-	player = new DiggerPlayer(21,11,sf::Vector2f(0,0),textures,animations);
+	menu = new MainMenu(highScoreSystem,animations,fonts,textures);
+	
 }
 Game::~Game()
 {

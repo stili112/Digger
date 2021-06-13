@@ -1,6 +1,9 @@
 #pragma once
 
 #include<vector>
+#include<fstream>
+#include<string>
+#include<stdexcept>
 
 #include<SFML/System.hpp>
 #include<SFML/Graphics.hpp>
@@ -13,6 +16,7 @@
 #include"StringHelpers.hpp"
 
 #include"Emerald.h"
+#include"Bonus.h"
 #include"MoneyBag.h"
 
 class Map
@@ -28,6 +32,7 @@ public:
 	static const float PIXELS_BETWEEN_TWO_CIRCLES;
 
 private:
+	sf::Sprite background;
 
 	//design
 	char levelDesign[15][10];
@@ -47,9 +52,11 @@ private:
 	//Emerald and Bags of Gold
 	std::vector<Emerald> emeralds;
 	std::vector<MoneyBag> moneyBags;
+	Bonus* bonus;
 
 	//init
 	void initDiggedSpots();
+	void initBackground();
 
 	//functions
 	void copyMap(const Map& other);
@@ -58,6 +65,8 @@ private:
 	void reshapeArray(char from[10][15], char to[15][10]);
 
 	void makeStartFormation();
+
+	void readFromFile(int level);
 public:
 
 	Map(int level, sf::Vector2f topLeftCorner, TextureHolder& textures);
@@ -69,13 +78,18 @@ public:
 	void update(sf::Time& elapsedTime);
 	void render(sf::RenderTarget* target);
 
+	//get
 	sf::Vector2i getPlayerStartPos() const;
 	sf::Vector2i getEnemySpawnPos() const;
 	const bool** getDiggedSpots() const;
-	const std::vector<Emerald>& getEmeralds() const;
-	const std::vector<MoneyBag>& getMoneyBags() const;
+	std::vector<Emerald>& getEmeralds();
+	std::vector<MoneyBag>& getMoneyBags();
+	Bonus* getBonus();
 
 	void createCircle(int x, int y);
+	void spawnBonus();
+	void deleteBonus();
 	
+	void loadMap(int level);
 };
 
