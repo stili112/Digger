@@ -362,7 +362,7 @@ void Play::playerDied()
 {
 	brLifes--;
 	player->deathPlayer();
-	if (brLifes == 0)
+	if (brLifes == -1)
 	{
 		gameOver = true;
 		deathMusic.stop();
