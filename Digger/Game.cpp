@@ -7,6 +7,7 @@ Game Game::instance;
 //init
 void Game::initVariables()
 {
+	showFps = false;
 	window = nullptr;
 }
 void Game::initWindow()
@@ -194,6 +195,12 @@ void Game::initFonts()
 {
 	fonts.load(Fonts::TextFont, "Fonts/Roboto-Regular.ttf");
 }
+void Game::initStatistic()
+{
+	fpsText.setFont(fonts.get(Fonts::TextFont));
+	fpsText.setPosition(850.f, 5.f);
+	fpsText.setCharacterSize(18);
+}
 
 //update
 void Game::processEvents()
@@ -206,12 +213,20 @@ void Game::processEvents()
 		case sf::Event::Closed:
 			window->close();
 			break;
+		case sf::Event::KeyPressed:
+			if (event.key.code == sf::Keyboard::F)
+			{
+				showFps = !showFps;
+			}
+			break;
 		}
 	}
 }
 void Game::update(sf::Time& elapsedTime)
 {
 	processEvents();
+
+	updateStatistics(elapsedTime);
 
 	if (play != nullptr)
 	{
@@ -237,6 +252,22 @@ void Game::update(sf::Time& elapsedTime)
 	}
 	
 }
+void Game::updateStatistics(sf::Time& elapsedTime)
+{
+	statisticsUpdateTime += elapsedTime;
+	statisticsNumFrames += 1;
+
+	if (statisticsUpdateTime >= sf::seconds(1.0f))
+	{
+		fpsText.setString(
+			"Frames / Second = " + toString(statisticsNumFrames) + "\n" +
+			"Time / Update = " + toString(statisticsUpdateTime.asMicroseconds() / statisticsNumFrames) + "us");
+
+		statisticsUpdateTime -= sf::seconds(1.0f);
+		statisticsNumFrames = 0;
+	}
+}
+
 
 //render
 void Game::render(sf::RenderTarget* target)
@@ -253,9 +284,18 @@ void Game::render(sf::RenderTarget* target)
 	{
 		menu->render(target);
 	}
+	renderStatistic();
 
 	//display
 	window->display();
+}
+void Game::renderStatistic()
+{
+	if (showFps == true)
+	{
+		window->draw(fpsText);
+	}
+	
 }
 
 //delete 
@@ -278,6 +318,7 @@ Game::Game()
 	initTextures();
 	initFonts();
 	initAnimation();
+	initStatistic();
 
 	menu = new MainMenu(highScoreSystem, animations, fonts, textures);
 
@@ -299,7 +340,7 @@ Game& Game::getInstance()
 void Game::run()
 {
 	sf::Clock clock;
-	sf::Time elapsedTime;
+	sf::Time elapsedTime = sf::Time::Zero;
 
 	while (window->isOpen())
 	{

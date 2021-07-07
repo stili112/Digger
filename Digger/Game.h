@@ -27,10 +27,16 @@ private:
 	//main menu
 	MainMenu* menu;
 
+	//frame statistic
+	sf::Text fpsText;
+	sf::Time statisticsUpdateTime;
+	std::size_t statisticsNumFrames;
+
 	//in game
 	Play* play;
 
 	//Resource houders
+	bool showFps;
 	TextureHolder textures;
 	AnimationHolder animations;
 	FontHolder fonts;
@@ -41,13 +47,16 @@ private:
 	void initTextures();
 	void initAnimation();
 	void initFonts();
+	void initStatistic();
 
 	//update
 	void processEvents();
 	void update(sf::Time& elapsedTime);
+	void updateStatistics(sf::Time& elapsedTime);
 
 	//render
 	void render(sf::RenderTarget* target);
+	void renderStatistic();
 
 	//delete 
 	void deleteVariables();
