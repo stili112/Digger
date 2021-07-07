@@ -2,7 +2,8 @@
 #include <iostream>
 
 //private
- 
+Game Game::instance;
+
 //init
 void Game::initVariables()
 {
@@ -269,11 +270,7 @@ void Game::deleteVariables()
 	delete menu;
 	menu = nullptr;
 }
-
-
-
-//public
-//Constructor Destructor
+//Constructor
 Game::Game()
 {
 	initVariables();
@@ -282,15 +279,23 @@ Game::Game()
 	initFonts();
 	initAnimation();
 
-	menu = new MainMenu(highScoreSystem,animations,fonts,textures);
-	
+	menu = new MainMenu(highScoreSystem, animations, fonts, textures);
+
 }
+
+//public
+//Destructor
 Game::~Game()
 {
 	deleteVariables();
 }
 
 //Functions
+Game& Game::getInstance()
+{
+	return instance;
+}
+
 void Game::run()
 {
 	sf::Clock clock;

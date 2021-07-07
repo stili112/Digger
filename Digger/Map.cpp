@@ -106,123 +106,13 @@ void Map::makeStartFormation()
 	{
 		for (size_t j = 0; j < 10; j++)
 		{
-			if (levelDesign[i][j] == '.' || levelDesign[i][j] == 'S' || levelDesign[i][j] == 'D')
-			{
-				if (levelDesign[i][j] == '.' || levelDesign[i][j] == 'D')
-				{
-					circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
-					map[1 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
-				}
-
-				if (i > 0)
-				{
-					if (levelDesign[i - 1][j] == '.' || levelDesign[i - 1][j] == 'S' || levelDesign[i - 1][j] == 'D')
-					{
-						circle.setPosition(topLeftCorner.x + (i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
-						map[i * 5][1 + j * 5] = new sf::CircleShape(circle);
-
-						circle.setPosition(topLeftCorner.x + (-1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
-						map[-1 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
-					}
-				}
-				else
-				{
-					circle.setPosition(topLeftCorner.x + (i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
-					map[i * 5][1 + j * 5] = new sf::CircleShape(circle);
-				}
-
-				if (i < 14)
-				{
-					if (levelDesign[i + 1][j] == '.' || levelDesign[i + 1][j] == 'S' || levelDesign[i + 1][j] == 'D')
-					{
-						circle.setPosition(topLeftCorner.x + (2 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
-						map[2 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
-
-						circle.setPosition(topLeftCorner.x + (3 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
-						map[3 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
-					}
-				}
-				else
-				{
-					circle.setPosition(topLeftCorner.x + (2 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
-					map[2 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
-				}
-
-				if (j > 0)
-				{
-					if (levelDesign[i][j - 1] == '.' || levelDesign[i][j - 1] == 'S' || levelDesign[i][j - 1] == 'D')
-					{
-						circle.setPosition(topLeftCorner.x + (1 +i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
-						map[1 +i * 5][ j * 5] = new sf::CircleShape(circle);
-
-						circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (-1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
-						map[1 + i * 5][-1 + j * 5] = new sf::CircleShape(circle);
-					}
-				}
-
-				if (j < 9)
-				{
-					if (levelDesign[i][j + 1] == '.' || levelDesign[i][j + 1] == 'S' || levelDesign[i][j + 1] == 'D')
-					{
-						circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (2 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
-						map[1 + i * 5][2 +j * 5] = new sf::CircleShape(circle);
-
-						circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (3 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
-						map[1 + i * 5][3 + j * 5] = new sf::CircleShape(circle);
-					}
-				}
-			}
-			
-			if (levelDesign[i][j] == 'E')
-			{
-				Emerald emerald((1 + i * 5), (1 + j * 5),topLeftCorner,textures,3);
-				emeralds.push_back(emerald);
-			}
-			if (levelDesign[i][j] == 'B')
-			{
-				MoneyBag moneyBag((1 + i * 5), (1 + j * 5), topLeftCorner, textures, 3);
-				moneyBags.push_back(moneyBag);
-			}
-			if (levelDesign[i][j] == 'S')
-			{
-				if (j > 0 && levelDesign[i][j - 1] != '.')
-				{
-					circle.setPosition(topLeftCorner.x + (i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
-					map[1 + i * 5][ j * 5] = new sf::CircleShape(circle);
-				}
-				if (j < 9 && levelDesign[i][j + 1] != '.')
-				{
-					circle.setPosition(topLeftCorner.x + (2 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
-					map[1 + i * 5][2 + j * 5] = new sf::CircleShape(circle);
-				}
-
-				if (i > 0 && levelDesign[i-1][j] != '.')
-				{
-					circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
-					map[i * 5][1+ j * 5] = new sf::CircleShape(circle);
-				}
-				if (i < 14 && levelDesign[i+1][j] != '.')
-				{
-					circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (2 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
-					map[2 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
-				}
-
-				circle.setPosition(topLeftCorner.x + i * 5 * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + j * 5 * PIXELS_BETWEEN_TWO_CIRCLES);
-				circle.setRadius(ENEMY_SPAWN_POSITION_TUNEL_WIDTH);
-				map[1 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
-				circle.setRadius(TUNNEL_WIDTH);
-
-				enemySpawnPos = sf::Vector2i(1 + 5 * i, 1 + 5 * j);
-			}
-			if (levelDesign[i][j] == 'D')
-			{
-				playerStartPos = sf::Vector2i(1 + 5 * i, 1 + 5 * j);
-			}
+			makeTunels(circle, i, j);
+			makeEmeralds(i, j);
+			makeMoneyBags(i, j);
+			makeEnemyStartPosition(circle, i, j);
+			makePlayerStartPosition(i, j);
 		}
-
-
 	}
-
 
 	for (size_t i = 0; i < BR_COLLS; i++)
 	{
@@ -238,6 +128,141 @@ void Map::makeStartFormation()
 			}
 		}
 
+	}
+}
+void Map::makeTunels(sf::CircleShape& circle, int i, int j)
+{
+	if (!(i >= 0 && i <= 14 && j >= 0 && j <= 9))
+	{
+		return;
+	}
+	if (levelDesign[i][j] == '.' || levelDesign[i][j] == 'S' || levelDesign[i][j] == 'D')
+	{
+		if (levelDesign[i][j] == '.' || levelDesign[i][j] == 'D')
+		{
+			circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
+			map[1 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
+		}
+
+		if (i > 0)
+		{
+			if (levelDesign[i - 1][j] == '.' || levelDesign[i - 1][j] == 'S' || levelDesign[i - 1][j] == 'D')
+			{
+				circle.setPosition(topLeftCorner.x + (i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
+				map[i * 5][1 + j * 5] = new sf::CircleShape(circle);
+
+				circle.setPosition(topLeftCorner.x + (-1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
+				map[-1 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
+			}
+		}
+		else
+		{
+			if ( (j > 0 && levelDesign[i][j - 1] != '.' && levelDesign[i][j - 1] != 'S') && (j < 14 && levelDesign[i][j + 1] != '.' || levelDesign[i][j + 1] != 'S'))
+			{
+				circle.setPosition(topLeftCorner.x + (i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
+				map[i * 5][1 + j * 5] = new sf::CircleShape(circle);
+			}
+			
+		}
+
+		if (i < 14)
+		{
+			if (levelDesign[i + 1][j] == '.' || levelDesign[i + 1][j] == 'S' || levelDesign[i + 1][j] == 'D')
+			{
+				circle.setPosition(topLeftCorner.x + (2 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
+				map[2 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
+
+				circle.setPosition(topLeftCorner.x + (3 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
+				map[3 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
+			}
+		}
+		else
+		{
+			circle.setPosition(topLeftCorner.x + (2 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
+			map[2 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
+		}
+
+		if (j > 0)
+		{
+			if (levelDesign[i][j - 1] == '.' || levelDesign[i][j - 1] == 'S' || levelDesign[i][j - 1] == 'D')
+			{
+				circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
+				map[1 + i * 5][j * 5] = new sf::CircleShape(circle);
+
+				circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (-1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
+				map[1 + i * 5][-1 + j * 5] = new sf::CircleShape(circle);
+			}
+		}
+
+		if (j < 9)
+		{
+			if (levelDesign[i][j + 1] == '.' || levelDesign[i][j + 1] == 'S' || levelDesign[i][j + 1] == 'D')
+			{
+				circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (2 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
+				map[1 + i * 5][2 + j * 5] = new sf::CircleShape(circle);
+
+				circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (3 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
+				map[1 + i * 5][3 + j * 5] = new sf::CircleShape(circle);
+			}
+		}
+	}
+
+}
+void Map::makeEmeralds(int i, int j)
+{
+	if (levelDesign[i][j] == 'E')
+	{
+		Emerald emerald((1 + i * 5), (1 + j * 5), topLeftCorner, textures, 3);
+		emeralds.push_back(emerald);
+	}
+}
+void Map::makeMoneyBags(int i, int j)
+{
+	if (levelDesign[i][j] == 'B')
+	{
+		MoneyBag moneyBag((1 + i * 5), (1 + j * 5), topLeftCorner, textures, 3);
+		moneyBags.push_back(moneyBag);
+	}
+}
+void Map::makeEnemyStartPosition(sf::CircleShape& circle, int i, int j)
+{
+	if (levelDesign[i][j] == 'S')
+	{
+		if (j > 0 && levelDesign[i][j - 1] != '.')
+		{
+			circle.setPosition(topLeftCorner.x + (i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
+			map[1 + i * 5][j * 5] = new sf::CircleShape(circle);
+		}
+		if (j < 9 && levelDesign[i][j + 1] != '.')
+		{
+			circle.setPosition(topLeftCorner.x + (2 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (1 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
+			map[1 + i * 5][2 + j * 5] = new sf::CircleShape(circle);
+		}
+
+		if (i > 0 && levelDesign[i - 1][j] != '.')
+		{
+			circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
+			map[i * 5][1 + j * 5] = new sf::CircleShape(circle);
+		}
+		if (i < 14 && levelDesign[i + 1][j] != '.')
+		{
+			circle.setPosition(topLeftCorner.x + (1 + i * 5) * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + (2 + j * 5) * PIXELS_BETWEEN_TWO_CIRCLES);
+			map[2 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
+		}
+
+		circle.setPosition(topLeftCorner.x + i * 5 * PIXELS_BETWEEN_TWO_CIRCLES, topLeftCorner.y + j * 5 * PIXELS_BETWEEN_TWO_CIRCLES);
+		circle.setRadius(ENEMY_SPAWN_POSITION_TUNEL_WIDTH);
+		map[1 + i * 5][1 + j * 5] = new sf::CircleShape(circle);
+		circle.setRadius(TUNNEL_WIDTH);
+
+		enemySpawnPos = sf::Vector2i(1 + 5 * i, 1 + 5 * j);
+	}
+}
+void Map::makePlayerStartPosition(int i, int j)
+{
+	if (levelDesign[i][j] == 'D')
+	{
+		playerStartPos = sf::Vector2i(1 + 5 * i, 1 + 5 * j);
 	}
 }
 

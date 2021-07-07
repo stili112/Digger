@@ -51,12 +51,18 @@ private:
 
 	//delete 
 	void deleteVariables();
-	
-	
-public:
+
+	static Game instance;
+
 	//Constructor
 	Game();
+
+public:
+	//Destructor
 	~Game();
+
+	//get instance
+	static Game& getInstance();
 
 	void run();
 };

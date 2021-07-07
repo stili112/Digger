@@ -36,7 +36,6 @@ public:
 	void addToCurrentScore(int points);
 
 	std::vector<Score> getScores() const;
-	int getCurrentScore() const;
-	std::string getHightScore() const;
+	int getCurrentScore() const;	
 };
 

@@ -54,6 +54,10 @@ void Play::enemiesBagCollision()
 	{
 		for (size_t i = 0; i < map->getMoneyBags().size(); i++)
 		{
+			if (enemys.size() == 0 || map->getMoneyBags().size() == 0)
+			{
+				return;
+			}
 			if (enemys[j].getBound().intersects(map->getMoneyBags()[i].getBounds()))
 			{
 				if (map->getMoneyBags()[i].moneyBagIsFalling())
@@ -313,7 +317,11 @@ void Play::updateNextMap()
 	{
 		currentLevel++;
 		currentLevel = std::min(currentLevel,BR_LEVELS);
+
 		nextLevel();
+		normalMusic.play();
+		deathMusic.stop();
+		bonusRoundMusic.stop();
 
 		delete player;
 		initPlayer();
@@ -423,6 +431,8 @@ Play::Play(TextureHolder& textures, AnimationHolder& animations, FontHolder& fon
 	bonusRoundMusic.setLoop(true);
 
 	normalMusic.play();
+	deathMusic.stop();
+	bonusRoundMusic.stop();
 }
 Play::Play(const Play& other) : textures(other.textures), animations(other.animations), fonts(other.fonts), highScoreSystem(other.highScoreSystem)
 {

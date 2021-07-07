@@ -6,8 +6,8 @@ int main()
 {
 	try
 	{
-		Game game;
-		game.run();
+		Game& game = Game::getInstance();
+		game.run();		
 	}
 	catch (const std::exception& e)
 	{

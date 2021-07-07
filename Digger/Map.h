@@ -65,6 +65,11 @@ private:
 	void reshapeArray(char from[10][15], char to[15][10]);
 
 	void makeStartFormation();
+	void makeTunels(sf::CircleShape& circle, int i, int j);
+	void makeEmeralds(int i, int j);
+	void makeMoneyBags(int i, int j);
+	void makeEnemyStartPosition(sf::CircleShape& circle, int i, int j);
+	void makePlayerStartPosition(int i, int j);
 
 	void readFromFile(int level);
 public:
