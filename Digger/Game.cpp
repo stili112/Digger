@@ -1,5 +1,4 @@
 #include "Game.h"
-#include <iostream>
 
 //private
 Game Game::instance;

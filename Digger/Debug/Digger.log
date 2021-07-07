@@ -1,2 +1,10 @@
-﻿  Game.cpp
+﻿  DiggerPlayer.cpp
+  Enemy.cpp
+E:\Digger\Digger\Enemy.cpp(132,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Game.cpp
+  HighScoreSystem.cpp
+  Map.cpp
+  MoneyBag.cpp
+  Play.cpp
+  Generating Code...
   Digger.vcxproj -> E:\Digger\Debug\Digger.exe

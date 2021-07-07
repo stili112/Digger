@@ -1,5 +1,4 @@
 #include "Map.h"
-#include <iostream>
 
 //private
 const float Map::PIXELS_BETWEEN_TWO_CIRCLES = 14.f;

@@ -1,6 +1,5 @@
 #include "DiggerPlayer.h"
 #include"Bullet.h"
-#include <iostream>
 
 //private
 const int DiggerPlayer::OFSET_TOP = 0;

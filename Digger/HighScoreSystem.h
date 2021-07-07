@@ -13,7 +13,6 @@ public:
 private:
 	//const
 	static const std::string FILE_NAME;
-	
 
 	//board
 	std::vector<Score> highScores;
@@ -36,6 +35,6 @@ public:
 	void addToCurrentScore(int points);
 
 	std::vector<Score> getScores() const;
-	int getCurrentScore() const;	
+	int getCurrentScore() const;
 };
 

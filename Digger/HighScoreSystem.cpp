@@ -1,18 +1,18 @@
 #include "HighScoreSystem.h"
 
 //private
-const std::string HighScoreSystem::FILE_NAME ="HightScore.txt";
+const std::string HighScoreSystem::FILE_NAME = "HightScore.txt";
 
 void HighScoreSystem::loadFromFile()
 {
-	std::ifstream in(FILE_NAME);
+	std::ifstream in("HightScore.txt");
 	if (in.is_open())
 	{
 		for (size_t i = 0; i < MAX_BR_SCORES_SAVED; i++)
 		{
 			Score temp("...", 0);
 			in >> temp;
-			highScores.push_back(temp);
+			highScores.push_back(temp);			
 		}	
 
 		in.close();
@@ -28,7 +28,7 @@ void HighScoreSystem::loadFromFile()
 }
 void HighScoreSystem::saveToFile()
 {
-	std::ofstream out(FILE_NAME);
+	std::ofstream out("HightScore.txt");
 	if (out.is_open())
 	{
 		for (size_t i = 0; i < MAX_BR_SCORES_SAVED; i++)
@@ -39,7 +39,7 @@ void HighScoreSystem::saveToFile()
 	}
 }
 //public
-HighScoreSystem::HighScoreSystem()
+HighScoreSystem::HighScoreSystem() 
 {
 	reseteCurrentScore();
 

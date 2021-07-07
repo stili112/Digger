@@ -1,5 +1,4 @@
 #include "Play.h"
-#include <iostream>
 
 //private
 const float Play::TIME_SPAWN_ENEMY=5.f;

@@ -1,6 +1,5 @@
 #include "MoneyBag.h"
 #include"Map.h"
-#include <iostream>
 
 //private
 const float MoneyBag::movingEvrySeconds = 0.1f;
